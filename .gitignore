@@ -1,2 +1,4 @@
-MailSenirtizer
+bin/*
+token.json
+credentials.json
 remove-spam

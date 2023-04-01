@@ -7,7 +7,9 @@ import (
 	"log"
 	"net/http"
 	"os"
+	"time"
 
+	"github.com/GoswamiTech/MailSenitizer/tokenListener"
 	"golang.org/x/oauth2"
 	"google.golang.org/api/gmail/v1"
 )
@@ -28,20 +30,34 @@ func GetClient(config *oauth2.Config, tokFile string) *http.Client {
 
 // Request a token from the web, then returns the retrieved token.
 func getTokenFromWeb(config *oauth2.Config) *oauth2.Token {
+
+	oauthCodeChannel := make(chan string)
+	// Start http server to read auth code
+	tokenListener.Start(oauthCodeChannel)
+
+	defer func() {
+		tokenListener.Shutdown()
+	}()
+
 	authURL := config.AuthCodeURL("state-token", oauth2.AccessTypeOffline)
 	fmt.Printf("Go to the following link in your browser then type the "+
 		"authorization code: \n%v\n", authURL)
 
 	var authCode string
-	if _, err := fmt.Scan(&authCode); err != nil {
-		log.Fatalf("Unable to read authorization code: %v", err)
-	}
 
-	tok, err := config.Exchange(context.TODO(), authCode)
-	if err != nil {
-		log.Fatalf("Unable to retrieve token from web: %v", err)
+	select {
+	case authCode = <-oauthCodeChannel:
+		log.Println("Authcode recieved")
+		tok, err := config.Exchange(context.TODO(), authCode)
+		if err != nil {
+			log.Fatalf("Unable to retrieve token from web: %v", err)
+			return nil
+		}
+		return tok
+	case <-time.After(time.Duration(time.Second * 300)):
+		log.Fatalf("Unable to get oauth code after 300 second. Please retry and authorize again")
+		return nil
 	}
-	return tok
 }
 
 // Retrieves a token from a local file.
@@ -75,10 +91,6 @@ func GetLabel(srv *gmail.Service, user string) []*gmail.Label {
 	if len(r.Labels) == 0 {
 		fmt.Println("No labels found.")
 		return nil
-	}
-	fmt.Println("Labels:")
-	for _, l := range r.Labels {
-		fmt.Printf("- %s-%s\n", l.Name, l.Id)
 	}
 	return r.Labels
 }

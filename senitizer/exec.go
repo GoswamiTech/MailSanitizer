@@ -6,7 +6,7 @@ import (
 	"log"
 	"os"
 
-	"github.com/GoswamiTech/MailSenirtizer/mail"
+	"github.com/GoswamiTech/MailSenitizer/mail"
 	"golang.org/x/oauth2/google"
 	"google.golang.org/api/gmail/v1"
 	"google.golang.org/api/option"
@@ -105,9 +105,9 @@ func (args *CommandLineArguments) DeleteEmails() {
 				}
 				err = args.Srvc.Users.Messages.Delete(args.User, message.Id).Do()
 				if err != nil {
-					fmt.Printf("message: %s - not deleted: %v", msg.Id, err)
+					fmt.Printf("message: %s - not deleted: %v\n", msg.Id, err)
 				}
-				fmt.Printf("message: %s - deleted", msg.Id)
+				fmt.Printf("message: %s - deleted\n", msg.Id)
 				// <-parallel
 				return nil
 			}(msg)

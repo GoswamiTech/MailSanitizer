@@ -1,10 +1,10 @@
-# MailSenirtizer
+# MailSenitizer
 service which senitize email by deleting spams
 
 Refer [Using OAuth 2.0 to Access Google APIs](https://developers.google.com/identity/protocols/oauth2) and [Oauth Scopes](https://developers.google.com/gmail/api/reference/rest/v1/users.messages/delete) to setup google API authentication
 
 ```bash
-./MailSenirtizer --h
+../bin/MailSenitizer --h
  usage:
 	remove-spam [-credential <credential file path>] [-label <label>] [-spammers <spammers file path>]
 
