@@ -6,7 +6,7 @@ import (
 	"log"
 	"os"
 
-	"github.com/GoswamiTech/MailSenirtizer/senitizer"
+	"github.com/GoswamiTech/MailSenitizer/senitizer"
 )
 
 const usage = ` usage:
@@ -21,13 +21,12 @@ options:
 `
 
 func main() {
-
 	flag.Usage = func() { fmt.Fprintf(os.Stderr, "%s\n", usage) }
 
 	// command line arguments
 	credential := flag.String("credential", "", "oauth credential filen downloaded from google console")
 	label := flag.String("label", "", "labelIds of labels/folder, separated by comma")
-	token := flag.String("token", "", "path of token file.")
+	token := flag.String("token", "token.json", "path of token file.")
 	spammers := flag.String("spammers", "", "path of spamers file. If not provided, all mails will be deleted into label")
 	user := flag.String("user", "me", "emailId, default value is me")
 	threads := int16(*flag.Int64("threads", 10, "Number of threads to be allocated for the service"))
@@ -43,7 +42,7 @@ func main() {
 		Threads:        threads,
 	}
 
-	if _, err := os.Stat(*token); err != nil && *token != "" {
+	if _, err := os.Stat(*token); err != nil && *token != "token.json" {
 		log.Printf("[WARNING] token file %s doesn't exist. Therefore you need to reauthorize.\n", *token)
 	}
 	if _, err := os.Stat(*credential); err != nil {
@@ -60,7 +59,9 @@ func main() {
 			return
 		}
 	}
-	args.NewService()
+	if err := args.NewService(); err!=nil{
+		log.Fatalf("[ERROR] error while authentication %v",err)
+	}
 	args.GetLabel()
 	args.DeleteEmails()
 }
