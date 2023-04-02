@@ -41,7 +41,7 @@ func getTokenFromWeb(config *oauth2.Config) *oauth2.Token {
 
 	authURL := config.AuthCodeURL("state-token", oauth2.AccessTypeOffline)
 	fmt.Printf("Go to the following link in your browser,"+
-	 "then authoerize the service to perform read,delete messages\n%v\n", authURL)
+		"then authoerize the service to perform read,delete messages\n%v\n", authURL)
 
 	var authCode string
 

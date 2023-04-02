@@ -1,8 +1,10 @@
+default : build
+
 fmt: ;@go fmt ./...
 
 compile: ;@GO111MODULE=auto ;mkdir -p bin/ ; go build  -o ./bin/
 
-build: clean  compile bind
+build: clean fmt compile bind
 
 clean: ;@rm -rf ./bin/MailSenitizer
 

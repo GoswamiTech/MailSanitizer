@@ -59,8 +59,8 @@ func main() {
 			return
 		}
 	}
-	if err := args.NewService(); err!=nil{
-		log.Fatalf("[ERROR] error while authentication %v",err)
+	if err := args.NewService(); err != nil {
+		log.Fatalf("[ERROR] error while authentication %v", err)
 	}
 	args.GetLabel()
 	args.DeleteEmails()
