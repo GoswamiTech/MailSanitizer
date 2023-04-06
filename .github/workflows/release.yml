@@ -1,9 +1,13 @@
 # .github/workflows/release.yaml
 
+
+name: Releaser
 on:
-  workflow_dispatch
+  workflow_dispatch:
   release:
     types: [created]
+
+permissions: read-all
 
 jobs:
   releases-matrix:
