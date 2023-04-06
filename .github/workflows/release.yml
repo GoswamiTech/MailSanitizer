@@ -7,7 +7,9 @@ on:
   release:
     types: [created]
 
-permissions: read-all
+permissions:
+    contents: write
+    packages: write
 
 jobs:
   releases-matrix:
@@ -31,6 +33,6 @@ jobs:
         goos: ${{ matrix.goos }}
         goarch: ${{ matrix.goarch }}
         goversion: "https://dl.google.com/go/go1.18.linux-amd64.tar.gz"
-        project_path: "./cmd/test-binary"
-        binary_name: "MailSenitizer"
+        project_path: "."
+        binary_name: "mailsenitizer"
         extra_files: LICENSE README.md
