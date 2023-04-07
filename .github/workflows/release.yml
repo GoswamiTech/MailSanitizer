@@ -25,15 +25,20 @@ jobs:
             goos: windows
     steps:
     - uses: actions/checkout@v3
+    - name: Read CHANGELOG file
+      id: getchangelog
+      run: echo "changelog=$(cat CHANGELOG.md)" >> $GITHUB_OUTPUT
+    - name: Extract branch name
+      shell: bash
+      run: echo "branch=$(echo ${GITHUB_REF#refs/heads/})" >>$GITHUB_OUTPUT
+      id: extract_branch
     - uses: actions/create-release@latest
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # This token is provided by Actions, you do not need to create your own token
       with:
-        tag_name: ${{ github.ref }}
-        release_name: Release ${{ github.ref }}
-        body: |
-          Changes in this Release
-          - Added command to delete spam into gmail
+        tag_name: ${{ steps.extract_branch.outputs.branch }}
+        release_name: Release ${{ steps.extract_branch.outputs.branch }}
+        body: ${{ steps.getchangelog.outputs.changelog }}
         draft: false
         prerelease: false
     - uses: wangyoucao577/go-release-action@v1
@@ -45,4 +50,4 @@ jobs:
         project_path: "."
         binary_name: "mailsenitizer"
         extra_files: LICENSE README.md
-        release_tag: ${{ github.ref }}
+        release_tag: ${{ steps.extract_branch.outputs.branch }}
