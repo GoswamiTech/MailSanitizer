@@ -7,9 +7,7 @@ on:
   release:
     types: [created]
 
-permissions:
-    contents: write
-    packages: write
+permissions: write-all
 
 jobs:
   releases-matrix:
@@ -36,3 +34,4 @@ jobs:
         project_path: "."
         binary_name: "mailsenitizer"
         extra_files: LICENSE README.md
+        release_tag: "v0.0.1"
