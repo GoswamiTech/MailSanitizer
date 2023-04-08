@@ -36,6 +36,8 @@ jobs:
       id: checkTag
       with:
         tag: ${{ steps.extract_branch.outputs.branch }}
+    - run: echo ${{ steps.checkTag.outputs.exists }}
+
     - uses: actions/create-release@latest
       if: ${{ !steps.checkTag.outputs.exists }}
       env:
