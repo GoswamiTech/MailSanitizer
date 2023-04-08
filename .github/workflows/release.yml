@@ -38,6 +38,7 @@ jobs:
       with:
         tag_name: ${{ steps.extract_branch.outputs.branch }}
         release_name: Release ${{ steps.extract_branch.outputs.branch }}
+        allowUpdates: true
         # body: ${{ steps.getchangelog.outputs.changelog }}
         body: |
               ## v0.0.2 (April 07, 2023)
