@@ -19,27 +19,27 @@ jobs:
       #   id: getchangelog
       #   run: echo "changelog=$(cat CHANGELOG.md)" >> $GITHUB_OUTPUT
     - name: Extract branch name
-        shell: bash
-        run: echo "branch=$(echo ${GITHUB_REF#refs/heads/})" >>$GITHUB_OUTPUT
-        id: extract_branch
+      shell: bash
+      run: echo "branch=$(echo ${GITHUB_REF#refs/heads/})" >>$GITHUB_OUTPUT
+      id: extract_branch
     - uses: mukunku/tag-exists-action@v1.2.0
-        id: checkTag
-        with:
-          tag: ${{ steps.extract_branch.outputs.branch }}
+      id: checkTag
+      with:
+        tag: ${{ steps.extract_branch.outputs.branch }}
     - run: echo "tag_exists=${{ steps.checkTag.outputs.exists }}" >> $GITHUB_OUTPUT    
     - uses: actions/create-release@latest
-        if: (steps.checkTag.outputs.tag_exists == false)
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # This token is provided by Actions, you do not need to create your own token
-        with:
-          tag_name: ${{ steps.extract_branch.outputs.branch }}
-          release_name: Release ${{ steps.extract_branch.outputs.branch }}
-          allowUpdates: true
-          # body: ${{ steps.getchangelog.outputs.changelog }}
-          body: |
-                ## v0.1.0 (April 08, 2023)
+      if: (steps.checkTag.outputs.tag_exists == false)
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # This token is provided by Actions, you do not need to create your own token
+      with:
+        tag_name: ${{ steps.extract_branch.outputs.branch }}
+        release_name: Release ${{ steps.extract_branch.outputs.branch }}
+        allowUpdates: true
+        # body: ${{ steps.getchangelog.outputs.changelog }}
+        body: |
+              ## v0.1.0 (April 08, 2023)
 
-                ### Added
-                - support to delete spam from gmail
-          draft: false
-          prerelease: false
+              ### Added
+              - support to delete spam from gmail
+        draft: false
+        prerelease: false
