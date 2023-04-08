@@ -1,4 +1,6 @@
-name: Release
+# .github/workflows/release.yaml
+
+name: release
 on:
   workflow_dispatch:
   release:
