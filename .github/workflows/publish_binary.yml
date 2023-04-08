@@ -1,7 +1,7 @@
-# .github/workflows/release.yaml
+# .github/workflows/publish_binary.yaml
 
 
-name: Publish Binary
+name: Publish_Binary
 on:
   workflow_dispatch:
   release:
