@@ -36,10 +36,13 @@ jobs:
       id: checkTag
       with:
         tag: ${{ steps.extract_branch.outputs.branch }}
+    - run: echo ${{ steps.checkTag.outputs.exists }}
+
     - uses: actions/create-release@latest
-      if: ${{ !steps.checkTag.outputs.exists }}
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # This token is provided by Actions, you do not need to create your own token
+        TAG_EXISTS: ${{ steps.checkTag.outputs.exists }}
+      if: contains(${{ steps.checkTag.outputs.exists }},false)
       with:
         tag_name: ${{ steps.extract_branch.outputs.branch }}
         release_name: Release ${{ steps.extract_branch.outputs.branch }}
