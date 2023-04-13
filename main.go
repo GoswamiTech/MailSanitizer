@@ -6,11 +6,11 @@ import (
 	"log"
 	"os"
 
-	"github.com/GoswamiTech/MailSenitizer/senitizer"
+	"github.com/GoswamiTech/MailSanitizer/sanitizer"
 )
 
 const usage = ` usage:
-./bin/MailSenitizer [-credential <credential file path>] [-label <label>] [-spammers <spammers file path>]
+./bin/MailSanitizer [-credential <credential file path>] [-label <label>] [-spammers <spammers file path>]
 
 options:
 	-credential     Optional 	oauth credential filen downloaded from google console
@@ -33,7 +33,7 @@ func main() {
 
 	flag.Parse()
 
-	args := &senitizer.CommandLineArguments{
+	args := &sanitizer.CommandLineArguments{
 		CredentialFile: *credential,
 		User:           *user,
 		TokenFile:      *token,

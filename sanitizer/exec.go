@@ -1,4 +1,4 @@
-package senitizer
+package sanitizer
 
 import (
 	"context"
@@ -6,7 +6,7 @@ import (
 	"log"
 	"os"
 
-	"github.com/GoswamiTech/MailSenitizer/mail"
+	"github.com/GoswamiTech/MailSanitizer/mail"
 	"golang.org/x/oauth2/google"
 	"google.golang.org/api/gmail/v1"
 	"google.golang.org/api/option"

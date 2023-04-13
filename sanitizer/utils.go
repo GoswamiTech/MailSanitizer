@@ -1,4 +1,4 @@
-package senitizer
+package sanitizer
 
 import (
 	"encoding/base64"
