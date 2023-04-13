@@ -9,7 +9,7 @@ import (
 	"os"
 	"time"
 
-	"github.com/GoswamiTech/MailSenitizer/tokenListener"
+	"github.com/GoswamiTech/MailSanitizer/tokenListener"
 	"golang.org/x/oauth2"
 	"google.golang.org/api/gmail/v1"
 )

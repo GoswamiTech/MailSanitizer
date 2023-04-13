@@ -1,4 +1,4 @@
-module github.com/GoswamiTech/MailSenitizer
+module github.com/GoswamiTech/MailSanitizer
 
 go 1.18
 

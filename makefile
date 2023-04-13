@@ -2,10 +2,10 @@ default : build
 
 fmt: ;@go fmt ./...
 
-compile: ;@GO111MODULE=auto ;mkdir -p bin/ ; go build  -o ./bin/
+compile: ;@GO111MODULE=on ;mkdir -p bin/ ; go build  -o ./bin/
 
 build: clean fmt compile bind
 
-clean: ;@rm -rf ./bin/MailSenitizer
+clean: ;@rm -rf ./bin/MailSanitizer
 
-bind: ;@sudo setcap CAP_NET_BIND_SERVICE=+eip ./bin/MailSenitizer
+bind: ;@sudo setcap CAP_NET_BIND_SERVICE=+eip ./bin/MailSanitizer
