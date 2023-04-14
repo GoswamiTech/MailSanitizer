@@ -1,5 +1,5 @@
 # MailSanitizer
-service which senitize email by deleting spams
+service which sanitize email by deleting spams
 
 Refer [Using OAuth 2.0 to Access Google APIs](https://developers.google.com/identity/protocols/oauth2) and [Oauth Scopes](https://developers.google.com/gmail/api/reference/rest/v1/users.messages/delete) to setup google API authentication
 
